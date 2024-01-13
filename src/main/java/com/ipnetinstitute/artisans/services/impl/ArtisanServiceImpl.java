@@ -8,6 +8,9 @@ import com.ipnetinstitute.artisans.mappers.ArtisanMapper;
 import com.ipnetinstitute.artisans.services.ArtisanService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,8 +34,10 @@ public class ArtisanServiceImpl implements ArtisanService {
     }
 
     @Override
-    public Page<ArtisanResponseDto> listArtisans() {
-        return null;
+    public Page<ArtisanResponseDto> listArtisans(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "artisanId"));
+        Page<Artisans> artisansPage = artisanDao.findAll(pageable);
+        return artisansPage.map(artisanMapper::fromArtisan);
     }
 
     @Override
