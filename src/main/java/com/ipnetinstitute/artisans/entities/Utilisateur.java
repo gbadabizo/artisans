@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,6 +27,6 @@ public class Utilisateur implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name="role_id", referencedColumnName = "id"
             ))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 }
 
